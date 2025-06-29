@@ -1048,34 +1048,62 @@
 
 <script src="https://cdn.emailjs.com/sdk/3.11.0/email.min.js"></script>
 <script>
-const SERVICE_ID  = "service_0p6dojp";
-const TEMPLATE_ID = "template_00altxm";
-const PUBLIC_KEY  = "5IIevUEmDg6snwEJI";
+  // Initialize EmailJS
+  (function() {
+    emailjs.init("5IIevUEmDg6snwEJI"); // Your public key
+  })();
 
-// Set current time in hidden field
-window.addEventListener("DOMContentLoaded", () => {
-  const timeInput = document.getElementById("timeInput");
-  if (timeInput) timeInput.value = new Date().toLocaleString();
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("contact_form");
+    const loadingDiv = form.querySelector(".loading");
+    const sentMessageDiv = form.querySelector(".sent-message");
+    const errorMessageDiv = form.querySelector(".error-message");
+    
+    // Set current timestamp
+    document.getElementById("timeInput").value = new Date().toLocaleString();
 
-  emailjs.init(PUBLIC_KEY);
-
-  const form = document.getElementById("contact_form");
-  if (!form) return;
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    alert("Sending..."); // 🟡 Step 1
-
-    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form)
-      .then(() => {
-        alert("✅ Mail Sent Successfully!");  // 🟢 Success
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      // Validate form
+      const name = form.elements["user_name"].value.trim();
+      const email = form.elements["user_email"].value.trim();
+      const message = form.elements["message"].value.trim();
+      
+      if (!name || !email || !message) {
+        errorMessageDiv.textContent = "Please fill all required fields";
+        errorMessageDiv.style.display = "block";
+        return;
+      }
+      
+      // Show loading state
+      loadingDiv.style.display = "block";
+      sentMessageDiv.style.display = "none";
+      errorMessageDiv.style.display = "none";
+      
+      emailjs.sendForm(
+        "service_0p6dojp", 
+        "template_00altxm", 
+        form
+      )
+      .then(function() {
+        // Success
+        sentMessageDiv.textContent = "Message sent successfully!";
+        sentMessageDiv.style.display = "block";
         form.reset();
       })
-      .catch((error) => {
-        alert("❌ Mail Failed: " + JSON.stringify(error)); // 🔴 Error
+      .catch(function(error) {
+        // Error
+        console.error("EmailJS Error:", error);
+        errorMessageDiv.textContent = "Failed to send message. Please try again later.";
+        errorMessageDiv.style.display = "block";
+      })
+      .finally(function() {
+        // Always execute
+        loadingDiv.style.display = "none";
       });
+    });
   });
-});
 </script>
 
 
