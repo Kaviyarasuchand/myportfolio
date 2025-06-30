@@ -102,7 +102,7 @@
                 <h1>Port<span class="accent-text">Folio</span></h1>
                 <h2>Kaviyarasu Chandran</h2>
                 <p class="lead">I'm a <span class="typed" data-typed-items="Software Engineer, Web Developer, Software Trainee, IT Support Specialist, Data Entry Operator"></span></p>
-                <p class="description">Motivated web developer skilled in HTML, CSS, JavaScript, and Bootsrap,
+                <p class="description">Motivated web developer skilled in HTML, CSS, JavaScript, and Bootstrap,
 					with a passion for building responsive and full-time opportunities where I can
 					contribute creatively, reliability, and strong technical skills.</p>
 
@@ -160,21 +160,21 @@
               </div>
 
               <div class="profile-content">
-                <h3>Marcus Thompson</h3>
-                <p class="profession">Creative Director &amp; Developer</p>
+                <h3>Kaviyarasu Chandran</h3>
+                <p class="profession">Web Developer & Software Engineer</p>
 
                 <div class="contact-links">
-                  <a href="mailto:marcus@example.com" class="contact-item">
+                  <a href="mailto:kaviyarasuchand@gmail.com" class="contact-item">
                     <i class="bi bi-envelope"></i>
-                    marcus@example.com
+                    kaviyarasuchand@gmail.com
                   </a>
-                  <a href="tel:+15551234567" class="contact-item">
+                  <a href="tel:+919629944907" class="contact-item">
                     <i class="bi bi-telephone"></i>
-                    +1 (555) 123-4567
+                    +91 9629 9449 07
                   </a>
                   <a href="#" class="contact-item">
                     <i class="bi bi-geo-alt"></i>
-                    San Francisco, CA
+                    Chennai, Tamil Nadu, India
                   </a>
                 </div>
               </div>
@@ -189,9 +189,9 @@
               </div>
 
               <div class="description">
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                <p>I am a passionate web developer with expertise in modern web technologies. I specialize in creating responsive, user-friendly websites and applications using HTML, CSS, JavaScript, and Bootstrap framework.</p>
 
-                <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.</p>
+                <p>With a strong foundation in software development principles and a keen eye for design, I strive to deliver high-quality digital solutions that meet both user needs and business objectives.</p>
               </div>
 
               <div class="stats-grid">
@@ -213,21 +213,21 @@
                 <div class="detail-row">
                   <div class="detail-item">
                     <span class="detail-label">Specialization</span>
-                    <span class="detail-value">UI/UX Design &amp; Development</span>
+                    <span class="detail-value">Web Development & UI/UX Design</span>
                   </div>
                   <div class="detail-item">
                     <span class="detail-label">Experience Level</span>
-                    <span class="detail-value">Senior Professional</span>
+                    <span class="detail-value">Junior to Mid-Level</span>
                   </div>
                 </div>
                 <div class="detail-row">
                   <div class="detail-item">
                     <span class="detail-label">Education</span>
-                    <span class="detail-value">Computer Science, MIT</span>
+                    <span class="detail-value">Computer Science/IT Degree</span>
                   </div>
                   <div class="detail-item">
                     <span class="detail-label">Languages</span>
-                    <span class="detail-value">English, Spanish, French</span>
+                    <span class="detail-value">English, Tamil</span>
                   </div>
                 </div>
               </div>
@@ -303,7 +303,7 @@
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Skills</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -1014,12 +1014,12 @@
   <div class="row gy-4">
     <div class="col-md-6">
       <label for="name" class="visually-hidden">Name</label>
-      <input type="text" name="user_name" id="name" class="form-control" placeholder="Your Name" required>
+      <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required>
     </div>
 
     <div class="col-md-6">
       <label for="email" class="visually-hidden">Email</label>
-      <input type="email" name="user_email" id="email" class="form-control" placeholder="Your Email" required>
+      <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" required>
     </div>
 
     <div class="col-12">
@@ -1050,31 +1050,81 @@
 
 
 <script src="https://cdn.emailjs.com/sdk/3.11.0/email.min.js"></script>
-<script>
-  // Initialize EmailJS
-  (function() {
-    emailjs.init("5IIevUEmDg6snwEJI"); // Your public key
-  })();
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+<script type="text/javascript">
+  emailjs.init('5IIevUEmDg6snwEJI')
+</script>
+<script>
+  
+  // Initialize EmailJS
+   
   document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("contact_form");
     const loadingDiv = form.querySelector(".loading");
     const sentMessageDiv = form.querySelector(".sent-message");
     const errorMessageDiv = form.querySelector(".error-message");
     
+    // Ensure all messages are hidden by default
+    loadingDiv.style.display = "none";
+    sentMessageDiv.style.display = "none";
+    errorMessageDiv.style.display = "none";
+    
     // Set current timestamp
     document.getElementById("timeInput").value = new Date().toLocaleString();
+
+    // Email validation function
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
 
     form.addEventListener("submit", function(e) {
       e.preventDefault();
       
       // Validate form
-      const name = form.elements["user_name"].value.trim();
-      const email = form.elements["user_email"].value.trim();
+      const name = form.elements["name"].value.trim();
+      const email = form.elements["email"].value.trim();
+      const subject = form.elements["subject"].value.trim();
       const message = form.elements["message"].value.trim();
       
-      if (!name || !email || !message) {
-        errorMessageDiv.textContent = "Please fill all required fields";
+      // Clear previous error messages
+      errorMessageDiv.style.display = "none";
+      
+      // Enhanced validation
+      if (!name) {
+        errorMessageDiv.textContent = "Please enter your name";
+        errorMessageDiv.style.display = "block";
+        return;
+      }
+      
+      if (!email) {
+        errorMessageDiv.textContent = "Please enter your email address";
+        errorMessageDiv.style.display = "block";
+        return;
+      }
+      
+      if (!isValidEmail(email)) {
+        errorMessageDiv.textContent = "Please enter a valid email address";
+        errorMessageDiv.style.display = "block";
+        return;
+      }
+      
+      if (!subject) {
+        errorMessageDiv.textContent = "Please enter a subject";
+        errorMessageDiv.style.display = "block";
+        return;
+      }
+      
+      if (!message) {
+        errorMessageDiv.textContent = "Please enter your message";
+        errorMessageDiv.style.display = "block";
+        return;
+      }
+      
+      if (message.length < 10) {
+        errorMessageDiv.textContent = "Message must be at least 10 characters long";
         errorMessageDiv.style.display = "block";
         return;
       }
@@ -1084,26 +1134,52 @@
       sentMessageDiv.style.display = "none";
       errorMessageDiv.style.display = "none";
       
-      emailjs.sendForm(
-        "service_0p6dojp", 
-        "template_00altxm", 
-        form
-      )
-      .then(function() {
+      // Disable submit button to prevent double submission
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+      //Public Key- CthfZfSjPjrd0rSva
+//emailjs.sendForm(
+  // "service_sanjai", 
+  // "template_3bek3do", 
+  // form
+emailjs.sendForm(
+  "service_0p6dojp", 
+  "template_00altxm", 
+  form
+).then(function(response) {
         // Success
-        sentMessageDiv.textContent = "Message sent successfully!";
+        console.log("EmailJS Success:", response);
+        sentMessageDiv.textContent = "Message sent successfully! I'll get back to you soon.";
         sentMessageDiv.style.display = "block";
         form.reset();
+        
+        // Reset timestamp
+        document.getElementById("timeInput").value = new Date().toLocaleString();
       })
       .catch(function(error) {
         // Error
         console.error("EmailJS Error:", error);
-        errorMessageDiv.textContent = "Failed to send message. Please try again later.";
+        
+        // More specific error messages
+        if (error.status === 400) {
+          errorMessageDiv.textContent = "Invalid form data. Please check your inputs.";
+        } else if (error.status === 429) {
+          errorMessageDiv.textContent = "Too many requests. Please try again later.";
+        } else if (error.status === 500) {
+          errorMessageDiv.textContent = "Server error. Please try again later.";
+        } else {
+          errorMessageDiv.textContent = "Failed to send message. Please try again later or contact me directly.";
+        }
         errorMessageDiv.style.display = "block";
       })
       .finally(function() {
         // Always execute
         loadingDiv.style.display = "none";
+        
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Message";
       });
     });
   });
